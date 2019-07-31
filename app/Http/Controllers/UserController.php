@@ -33,22 +33,33 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $product = Product::find($id);
+        $user = User::find($id);
 
-        return view('EditProduct', [ 'product' => $product]);
+
+        if(!$user){
+            return "not Found";
+        }
+        
+        return view('Users/update', [ 'user' => $user,
+        'roles' =>Role::latest()->paginate() ]);
     }
 
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
+        $user = User::find($id);
 
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->iva = $request->iva;
-        $product->quantity_available = $request->quantity_available;
-        $product->min_amount = $request->min_amount;
-        $product->max_amount = $request->max_amount;
-        $product->save();
+        if(!$user){
+            return "not Found";
+        }
+
+        $rq = request()->validate([
+            'role_id' => 'required',
+            'email' => 'required',
+      ]);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role_id = $rq['role_id'];
+        $user->save();
         return redirect()->back()->with('message', 'Actualizado con éxito');
 
     }
@@ -68,7 +79,7 @@ class UserController extends Controller
         $user = request()->validate([
             'name' => 'required',
             'email' => 'required|unique:users',
-            'password' => 'required',
+            'password' => 'required|confirmed',
             'role_id' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
       ]);
