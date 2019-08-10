@@ -87,7 +87,7 @@
             <img src="/images/logoHeader.png" class="img-fluid" style="padding: 20px">
             <ul>
                 <li> <a href="{{ route('users.index') }}"><i class="fas fa-user"></i> Usuarios</a></li>
-                <li> <i class="fab fa-product-hunt"></i><a> Productos</a></li>
+                <li> <a href="{{ route('products.index') }}"><i class="fab fa-product-hunt"></i> Productos</a></li>
 
             </ul>
             <div class="dropdown" style="  position: absolute;

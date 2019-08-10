@@ -16,6 +16,10 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+
+            $table->bigInteger('provider_id')->unsigned();
+            $table->foreign('provider_id')->references('id')->on('providers');
+ 
         });
     }
 

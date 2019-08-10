@@ -26,9 +26,9 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $product = Product::find($id);
+        $user = User::find($id);
 
-        return view('product', [ 'product' => $product]);
+        return view('Users/show', [ 'user' => $user]);
     }
 
     public function edit($id)
@@ -100,7 +100,7 @@ class UserController extends Controller
 
     public function destroy($id){
 
-        Product::findOrFail($id)->delete();
-        return redirect()->route('products.index');
+        User::findOrFail($id)->delete();
+        return redirect()->route('users.index');
     }
 }

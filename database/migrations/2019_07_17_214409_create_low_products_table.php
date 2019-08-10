@@ -16,6 +16,15 @@ class CreateLowProductsTable extends Migration
         Schema::create('low_products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->integer('type');
+            $table->integer('quantity');
+            $table->integer('price');
+            $table->string('possible_low_rate');
+
+            $table->bigInteger('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products');
+
+
         });
     }
 

@@ -16,8 +16,11 @@ class CreateReturnPurchasesDetailsTable extends Migration
         Schema::create('return_purchases_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->bigInteger('return_purchase_id')->unsigned();
+            $table->foreign('return_purchase_id')->references('id')->on('return_purchases');
+     
         });
-    }
+       }
 
     /**
      * Reverse the migrations.

@@ -64,4 +64,35 @@
     </div>
 </div>
 
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Eliminar usuario
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro de eliminar el usuario?
+            </div>
+            <div class="modal-footer">
+                <form method="POST" class="form-delete" action="{{ route('users.destroy', $user)}}">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                        <input type="submit" class="btn btn-danger" value="Eliminar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#confirm-delete').on('show.bs.modal', function (e) {
+        $(this).find('.form-delete').attr('action', $(e.relatedTarget).data('href'));
+    });
+</script>
+
 @stop

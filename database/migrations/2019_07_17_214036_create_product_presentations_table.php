@@ -16,6 +16,7 @@ class CreateProductPresentationsTable extends Migration
         Schema::create('product_presentations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->string('description');
         });
     }
 
