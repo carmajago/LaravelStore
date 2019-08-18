@@ -10,6 +10,8 @@ use App\ProductCategory;
 use App\SalesDetail;
 use App\salesDetail as AppSalesDetail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class SaleController extends Controller
 {
@@ -93,15 +95,26 @@ class SaleController extends Controller
     {
 
 
-        $sale = Sale::find($id);
+        $sale = Sale::with('client')->where('id', '=', $id)->first();
         $saleDetails = SalesDetail::with('product')->where('sale_id', '=', $id)->get();
         $products = Product::all();
+
+        $neto = SalesDetail::where('sale_id', '=', $id)
+            ->select(DB::raw('sum(price) as neto'))->first();
+
+        $iva = SalesDetail::where('sale_id', '=', $id)
+            ->select(DB::raw('sum(price*((iva/100)+1)) as iva'))->first();
+        $total = SalesDetail::where('sale_id', '=', $id)
+            ->select(DB::raw('sum(price*((iva/100)+1)*(1-(discount/100))) as total'))->first();
         return view(
             'Sales/create_step2',
             [
                 'sale' => $sale,
                 'products' => $products,
                 'saleDetails' => $saleDetails,
+                'neto' => round($neto["neto"]),
+                'iva' => round($iva["iva"]),
+                'total' => round($total["total"])
             ]
         );
     }
@@ -119,9 +132,16 @@ class SaleController extends Controller
 
         $saleId = $request->input('sale_id');
         $product = Product::find($pruductValidation['product_id']);
-
-
         $quantity = $request->input('quantity');
+        $sale = Sale::with('client')->where('id', '=', $saleId)->first();
+
+        if ((intval($product["quantity_available"]) - intval($quantity)) < 0) {
+
+            return Redirect::back()->withErrors(['No hay suficientes productos en stock']);
+        }
+
+        $product["quantity_available"] = intval($product["quantity_available"]) - intval($quantity);
+        $product->save();
 
         $productDetails = new SalesDetail;
         $productDetails->discount =  $request->discount;
@@ -133,7 +153,6 @@ class SaleController extends Controller
 
         $productDetails->save();
 
-        $sale = Sale::find($saleId);
         return redirect()->route('sales.addProduct', $sale);
     }
 

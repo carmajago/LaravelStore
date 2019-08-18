@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\ProductCategory;
 use App\ProductPresentation;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -15,10 +16,26 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+
+        $filter = $request->input('filter');
+
+
+        //return $filter;
+        if ($filter == "defeated") {
+            $products = Product::latest()->paginate(5);
+        } else
+        if ($filter == "exhausted") {
+            $products = Product::whereColumn("quantity_available", "<", "minimum_quantity")->paginate(5);
+            //return $products;
+        } else {
+            $products = Product::latest()->paginate(5);
+        }
+
+
         return view('Products/index', [
-            'products' => Product::latest()->paginate(5)
+            'products' => $products
         ]);
     }
 
