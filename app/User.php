@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email','photo','role_id','password'
+        'name', 'phone', 'address', 'credit',
     ];
 
     /**
@@ -37,19 +37,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function hasRoles(array $roles) {
+    public function hasRoles(array $roles)
+    {
         error_log($this->role);
         return in_array($this->role['name'], $roles);
     }
 
-    public function role() {
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return $this->hasRoles(['admin']);
     }
-    public function setPasswordAttribute($password) {
+    public function setPasswordAttribute($password)
+    {
         $this->attributes['password'] = bcrypt($password);
     }
 }

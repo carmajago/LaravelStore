@@ -11,11 +11,11 @@
 
             <div class="col-12">
 
-                <h1 class="text-center">Usuarios</h1>
+                <h1 class="text-center">Provedores</h1>
             </div>
             <div class="col-12" style="margin: 10px">
 
-                <a class="btn btn-primary btn-block" href="{{ route('products.create')}}">Crear nueva usuario</a>
+                <a class="btn btn-primary btn-block" href="{{ route('providers.create')}}">Crear nuevo provedor</a>
 
             </div>
 
@@ -24,29 +24,25 @@
                     <tr>
                         <th scope="col">Nombre</th>
                         <th scope="col">Fecha de creación</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">iva</th>
-                        <th scope="col">Cantidad disponible</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Correo</th>
                         <th scope="col"></th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products->all() as $product)
+                    @foreach ($providers->all() as $provider)
 
                     <tr>
-                        <td>{{ $product['name'] }}</td>
-                        <td>{{ $product['created_at'] }}</td>
-                        <td>{{ $product['price'] }}</td>
-                        <td>{{ $product['iva'] }}</td>
-                        <td>{{ $product['quantity_available'] }}</td>
+                        <td>{{ $provider['name'] }}</td>
+                        <td>{{ $provider['created_at'] }}</td>
+                        <td>{{ $provider['phone'] }}</td>
+                        <td>{{ $provider['email'] }}</td>
                         <td>
                             @if (auth()->user()->hasRoles(['admin']))
-                            <a class="btn btn-warning" href="{{ route('products.edit', $product)}}"><i class="fas fa-edit"></i></a>
-                            @endif
-                            <a class="btn btn-info" href="{{ route('products.show', $product )}}"><i class="fas fa-info-circle"></i></a>
 
-                            <a href="#" data-href="{{ route('products.destroy', $product)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                            <a href="#" data-href="{{ route('providers.destroy', $provider)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                            @endif
 
                         </td>
 
@@ -62,7 +58,7 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <form method="POST" class="form-delete" action="{{ route('products.destroy', $product)}}">
+                                    <form method="POST" class="form-delete" action="{{ route('providers.destroy', $provider)}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">
@@ -79,7 +75,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $products->links() }}
+            {{ $providers->links() }}
         </div>
     </div>
 </div>

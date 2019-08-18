@@ -16,9 +16,9 @@ class CreateSalesDetailsTable extends Migration
         Schema::create('sales_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->integer('quantity');
+            $table->integer('quantity')->default(1);
             $table->integer('price');
-            $table->integer('discount');
+            $table->integer('discount')->default(0);
             $table->integer('iva');
             $table->bigInteger('sale_id')->unsigned();
             $table->foreign('sale_id')->references('id')->on('sales');

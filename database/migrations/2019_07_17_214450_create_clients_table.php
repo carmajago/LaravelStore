@@ -19,8 +19,7 @@ class CreateClientsTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
-            $table->boolean('credit');
-
+            $table->boolean('credit')->default(0);
         });
     }
 

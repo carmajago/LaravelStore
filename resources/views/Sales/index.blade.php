@@ -11,43 +11,44 @@
 
             <div class="col-12">
 
-                <h1 class="text-center">Usuarios</h1>
+                <h1 class="text-center">Ventas</h1>
             </div>
             <div class="col-12" style="margin: 10px">
 
-                <a class="btn btn-primary btn-block" href="{{ route('products.create')}}">Crear nueva usuario</a>
+                <a class="btn btn-primary btn-block" href="{{ route('sales.create1')}}">Nueva venta</a>
 
             </div>
 
             <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">Crédito total</th>
                         <th scope="col">Fecha de creación</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">iva</th>
-                        <th scope="col">Cantidad disponible</th>
+                        <th scope="col">total contado</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Usuario</th>
                         <th scope="col"></th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products->all() as $product)
+                    @foreach ($sales->all() as $sale)
 
                     <tr>
-                        <td>{{ $product['name'] }}</td>
-                        <td>{{ $product['created_at'] }}</td>
-                        <td>{{ $product['price'] }}</td>
-                        <td>{{ $product['iva'] }}</td>
-                        <td>{{ $product['quantity_available'] }}</td>
+                        <td>{{ $sale['total_credit'] }}</td>
+                        <td>{{ $sale['created_at'] }}</td>
+                        <td>{{ $sale['total_counted'] }}</td>
+                        <td>{{ $sale['client']['name'] }}</td>
+                        <td>{{ $sale['user']['name'] }}</td>
+
+                        <td>
+
+                            <a class="btn btn-info" href="{{ route('sales.show', $sales )}}"><i class="fas fa-info-circle"></i></a>
+                        </td>
                         <td>
                             @if (auth()->user()->hasRoles(['admin']))
-                            <a class="btn btn-warning" href="{{ route('products.edit', $product)}}"><i class="fas fa-edit"></i></a>
+                            <a href="#" data-href="{{ route('sales.destroy', $sale)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                             @endif
-                            <a class="btn btn-info" href="{{ route('products.show', $product )}}"><i class="fas fa-info-circle"></i></a>
-
-                            <a href="#" data-href="{{ route('products.destroy', $product)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-
                         </td>
 
                     </tr>
@@ -62,7 +63,7 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <form method="POST" class="form-delete" action="{{ route('products.destroy', $product)}}">
+                                    <form method="POST" class="form-delete" action="{{ route('sales.destroy', $sale)}}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">
@@ -79,7 +80,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $products->links() }}
+            {{ $sales->links() }}
         </div>
     </div>
 </div>

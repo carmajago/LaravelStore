@@ -88,7 +88,9 @@
             <ul>
                 <li> <a href="{{ route('users.index') }}"><i class="fas fa-user"></i> Usuarios</a></li>
                 <li> <a href="{{ route('products.index') }}"><i class="fab fa-product-hunt"></i> Productos</a></li>
-
+                <li> <a href="{{ route('providers.index') }}"><i class="fab fa-product-hunt"></i> Provedores</a></li>
+                <li> <a href="{{ route('clients.index') }}"><i class="fab fa-product-hunt"></i> Clientes</a></li>
+                <li> <a href="{{ route('sales.index') }}"><i class="fab fa-product-hunt"></i> Ventas</a></li>
             </ul>
             <div class="dropdown" style="  position: absolute;
             bottom: 0;

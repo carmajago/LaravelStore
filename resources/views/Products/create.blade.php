@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Iva</label>
-                <input class="form-control" type="number" name="iva" placeholder="iva">
+                <input class="form-control" type="number" max="100" name="iva" placeholder="iva">
             </div>
 
             <div class="form-group">
