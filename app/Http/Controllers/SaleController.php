@@ -53,9 +53,26 @@ class SaleController extends Controller
 
     public function show($id)
     {
-        $sale = Sale::find($id);
 
-        return view('Sales/show', ['sale' => $sale]);
+        $sale = Sale::with('client')->where('id', '=', $id)->first();
+        $saleDetails = SalesDetail::with('product')->where('sale_id', '=', $id)->get();
+        $products = Product::all();
+
+        $neto = SalesDetail::where('sale_id', '=', $id)
+            ->select(DB::raw('sum(price) as neto'))->first();
+
+        $iva = SalesDetail::where('sale_id', '=', $id)
+            ->select(DB::raw('sum(price*((iva/100)+1)) as iva'))->first();
+        $total = SalesDetail::where('sale_id', '=', $id)
+            ->select(DB::raw('sum(price*((iva/100)+1)*(1-(discount/100))) as total'))->first();
+
+        return view('Sales/show', [
+            'sale' => $sale,
+            'saleDetails' => $saleDetails,
+            'neto' => round($neto["neto"]),
+            'iva' => round($iva["iva"]),
+            'total' => round($total["total"])
+        ]);
     }
 
     public function edit($id)
@@ -77,19 +94,46 @@ class SaleController extends Controller
     {
 
         $sale = request()->validate([
-            'total_credit' => 'required',
-            'total_counted' => 'required',
+            //'total_credit' => 'required',
+            //'total_counted' => 'required',
             'client_id' => 'required',
         ]);
 
         $userId = Auth::id();
-        $sale['user_id'] = $userId;
-        $ss = Sale::create($sale);
+        $ss = new Sale;
 
+        $ss->client_id = $sale['client_id'];
+        $ss->user_id = $userId;
+        $ss->total_credit = 0;
+        $ss->total_counted = 0;
+        $ss->save();
         $products = Product::all();
         return redirect()->route('sales.addProduct', $ss);
     }
 
+
+    public function updateCredit()
+    {
+        $rq = request()->validate([
+            'total_credit' => 'required',
+            'sale_id' => 'required',
+            //'client_id' => 'required',
+        ]);
+
+        $sale = Sale::find($rq['sale_id']);
+        $saleDetails = SalesDetail::where('sale_id', '=', $rq['sale_id'])
+            ->select(DB::raw('sum(price * (1+(iva/100)) * (1+(discount/100))) as total'))
+            ->first();
+
+        if ($rq['total_credit'] > $saleDetails['total']) {
+
+            return Redirect::back()->withErrors(['Limte de crédito superado']);
+        }
+        $sale->total_credit = $rq['total_credit'];
+        $sale->total_counted = ($saleDetails['total']) - $rq['total_credit'];
+        $sale->save();
+        return redirect()->route('sales.index');
+    }
 
     public function addProduct($id)
     {

@@ -41,8 +41,7 @@
                         <td>
                             @if (auth()->user()->hasRoles(['admin']))
 
-                            <a href="{{ route('providerPayment.create',$provider)}}" class="btn btn-primary">Realizar pago</a>
-                            <a href="{{ route('providers.show',$provider)}}" class="btn btn-primary">Ver detalles</a>
+                            <a href="{{ route('providers.destroy', $provider)}}" class="btn btn-primary">Realizar pago</a>
                             <a href="#" data-href="{{ route('providers.destroy', $provider)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                             @endif
 

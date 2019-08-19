@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@home');
+Route::get('/', 'HomeController@home')->name('home');;
 
 
 
@@ -42,6 +42,7 @@ Route::delete('/products/{id}', 'ProductController@destroy')->name('products.des
 
 // providers
 Route::get('/providers', 'ProviderController@index')->name('providers.index');
+Route::get('/providers/{id}', 'ProviderController@show')->name('providers.show');
 Route::get('/providers/create', 'ProviderController@create')->name('providers.create');
 Route::post('/providers', 'ProviderController@store')->name('providers.store');
 Route::delete('/providers/{id}', 'ProviderController@destroy')->name('providers.destroy');
@@ -71,3 +72,13 @@ Route::get('/sales/{id}', 'SaleController@show')->name('sales.show');
 Route::get('/sales/create/3/{id}', 'SaleController@create')->name('sales.create');
 Route::get('/sales/add_product/{id}', 'SaleController@addProduct')->name('sales.addProduct');
 Route::post('/sales/store_product', 'SaleController@storeProductDetail')->name('sales.storeProduct');
+
+Route::get('/provider_payment/create/{id}', 'ProviderPaymentController@create')->name('providerPayment.create');
+Route::post('/provider_payment/store', 'ProviderPaymentController@store')->name('providerPayment.store');
+
+Route::get('/client_payment/create/{id}', 'ClientPaymentController@create')->name('clientPayment.create');
+Route::post('/client_payment/store', 'ClientPaymentController@store')->name('clientPayment.store');
+Route::post('/sales/update_credit', 'SaleController@updateCredit')->name('sales.updateCredit');
+
+Route::get('/sales_return/create/{id}', 'SalesReturnController@create')->name('salesReturn.create');
+Route::post('/sales_return/store', 'SalesReturnController@store')->name('salesReturn.store');

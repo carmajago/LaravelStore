@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\ClientPayment;
+use App\Sale;
 
 use Illuminate\Http\Request;
 
@@ -28,8 +30,14 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::find($id);
+        $sales = Sale::where("client_id", "=", $id)->paginate(5);
+        $payments = ClientPayment::where("client_id", "=", $id)->paginate(5);
 
-        return view('Clients/show', ['client' => $client]);
+        return view('Clients/show', [
+            'client' => $client,
+            'sales' => $sales,
+            'payments' => $payments
+        ]);
     }
 
 

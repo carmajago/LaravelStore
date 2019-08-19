@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Provider;
+use App\ProviderPayment;
 
 use Illuminate\Http\Request;
 
@@ -22,8 +23,13 @@ class ProviderController extends Controller
     public function show($id)
     {
         $provider = Provider::find($id);
+        $providerPayments = ProviderPayment::where("provider_id", "=", $id)->paginate(5);
 
-        return view('Providers/show', ['provider' => $provider]);
+
+        return view('Providers/show', [
+            'provider' => $provider,
+            'providerPayments' => $providerPayments
+        ]);
     }
 
 

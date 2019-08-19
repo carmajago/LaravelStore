@@ -43,40 +43,10 @@
 
                         <td>
 
-                            <a class="btn btn-info" href="{{ route('sales.show', $sales )}}"><i class="fas fa-info-circle"></i></a>
-                        </td>
-                        <td>
-                            @if (auth()->user()->hasRoles(['admin']))
-                            <a href="#" data-href="{{ route('sales.destroy', $sale)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                            @endif
+                            <a class="btn btn-info" href="{{ route('sales.show', $sale )}}"><i class="fas fa-info-circle"></i></a>
                         </td>
 
                     </tr>
-                    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    Eliminar usuario
-                                </div>
-                                <div class="modal-body">
-                                    ¿Estas seguro de eliminar el usuario?
-                                </div>
-                                <div class="modal-footer">
-
-                                    <form method="POST" class="form-delete" action="{{ route('sales.destroy', $sale)}}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <div class="form-group">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-
-                                            <input type="submit" class="btn btn-danger" value="Eliminar">
-                                        </div>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     @endforeach
                 </tbody>
             </table>

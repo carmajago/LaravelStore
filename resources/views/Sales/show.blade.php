@@ -3,7 +3,9 @@
 <div>
     <div class="container">
         <div class="box" style="margin: 0 50px">
-            <h1 class="text-center">Nueva venta</h1>
+            <h1 class="text-center">Información de venta</h1>
+            <a class="btn btn-primary" href="{{route('salesReturn.create',$sale)}}">Realizar devolución</a>
+
             <div class="row">
                 <div class="col-6">
                     <hr />
@@ -35,30 +37,6 @@
             </div>
             @endif
             <hr>
-            <h2 class="text-center">Agregar productos</h2>
-            <form method="POST" class="form-inline" action="{{ route('sales.storeProduct') }}" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="sale_id" value="{{$sale['id']}}">
-
-                <div class="form-group mx-sm-3 mb-2">
-                    <input min="0" type="number" style="width: 120px" class="form-control" name="quantity" placeholder="Cantidad">
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <input min="0" type="number" style="width: 120px" class="form-control" name="discount" placeholder="Descuento">
-                </div>
-
-                <div class="form-group mx-sm-3 mb-2">
-                    <select id="product_id" name="product_id" class="form-control">
-                        <option value="" selected disabled hidden>Selecciona un producto</option>
-                        @foreach($products as $product)
-                        <option value="{{ $product['id'] }}">{{ $product['name'] }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <button type="submit" id="save" class="btn btn-primary mb-2">Agregar</button>
-            </form>
-
             <table class="table table-responsive">
                 <thead>
                     <tr>
@@ -67,6 +45,7 @@
                         <th scope="col">Descuento</th>
                         <th scope="col">Iva</th>
                         <th scope="col">Producto</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,21 +67,8 @@
             <h4><strong>Neto:</strong> ${{$neto}}</h4>
             <h4><strong>Total+IVA: </strong>${{$iva}}</h4>
             <h4><strong>Precio con descuento: </strong>${{$total}}</h4>
-            <form method="POST" class="form-inline" action="{{ route('sales.updateCredit') }}" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="sale_id" value="{{$sale['id']}}">
-                <h4 for=""><strong>Crédito</strong></h4>
-                <div class="form-group mx-sm-3 mb-2">
-                    <input min="0" type="number" style="width: 250px" value="0" class="form-control" name="total_credit" placeholder="Cantidad">
-                </div>
-
-
-
-                <button type="submit" class="btn btn-success btn-block">Terminar compra</button>
-            </form>
             <hr>
-
-
+            <a class="btn btn-secondary" href="{{ route('sales.index')}}">Regresar</a>
         </div>
     </div>
 </div>
