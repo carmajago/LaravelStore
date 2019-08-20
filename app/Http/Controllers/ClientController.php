@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\ClientPayment;
 use App\Sale;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -32,11 +33,15 @@ class ClientController extends Controller
         $client = Client::find($id);
         $sales = Sale::where("client_id", "=", $id)->paginate(5);
         $payments = ClientPayment::where("client_id", "=", $id)->paginate(5);
+        $totalCredit = Sale::where('client_id', '=', $id)
+            ->select(DB::raw('sum(total_credit) as total'))
+            ->first();
 
         return view('Clients/show', [
             'client' => $client,
             'sales' => $sales,
-            'payments' => $payments
+            'payments' => $payments,
+            'credit' => $totalCredit['total'],
         ]);
     }
 

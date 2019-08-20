@@ -24,7 +24,7 @@ class ProductController extends Controller
 
         //return $filter;
         if ($filter == "defeated") {
-            $products = Product::latest()->paginate(5);
+            $products = Product::whereColumn('expiration', '<', DB::raw('curdate()'))->paginate(5);
         } else
         if ($filter == "exhausted") {
             $products = Product::whereColumn("quantity_available", "<", "minimum_quantity")->paginate(5);
@@ -107,7 +107,8 @@ class ProductController extends Controller
             'minimum_quantity' => 'required',
             'maximum_quantity' => 'required',
             'product_presentation_id' => 'required',
-            'product_category_id' => 'required'
+            'product_category_id' => 'required',
+            'expiration' => 'required'
         ]);
 
 

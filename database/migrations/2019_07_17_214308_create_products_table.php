@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('quantity_available');
             $table->integer('minimum_quantity');
             $table->integer('maximum_quantity');
-
+            $table->timestamp('expiration');
             $table->bigInteger('product_presentation_id')->unsigned();
             $table->foreign('product_presentation_id')->references('id')->on('product_presentations');
 

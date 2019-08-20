@@ -5,15 +5,19 @@
 
         <div class="col-12">
             <h1 class="text-center">Información del cliente</h1>
-            <h4><strong>Nombre</strong>{{ $client["name"] }}</h4>
+            <h4><strong>Nombre:</strong>{{ $client["name"] }}</h4>
             <h4>
-                <strong>Fecha de creación</strong>{{ $client["created_at"] }}
+                <strong>Fecha de creación:</strong>{{ $client["created_at"] }}
             </h4>
-            <h4><strong>Telefono</strong>{{ $client["phone"] }}</h4>
-            <h4><strong>Dirección</strong>{{ $client["address"] }}</h4>
+            <h4><strong>Telefono:</strong>{{ $client["phone"] }}</h4>
+            <h4><strong>Dirección:</strong>{{ $client["address"] }}</h4>
             <h4>
-                <strong>Crédito</strong> @if($client['credit']) Sí @else No
+                <strong>Crédito:</strong> @if($client['credit']) Sí @else No
                 @endif
+            </h4>
+
+            <h4>
+                <strong>Deuda:</strong> {{$credit}}
             </h4>
         </div>
     </div>
@@ -27,7 +31,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">Crédito</th>
                         <th scope="col">Precio</th>
                     </tr>
                 </thead>

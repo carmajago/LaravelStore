@@ -17,6 +17,7 @@ class Product extends Model
         'minimum_quantity',
         'maximum_quantity',
         'product_presentation_id',
-        'product_category_id'
+        'product_category_id',
+        'expiration'
     ];
 }

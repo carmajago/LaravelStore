@@ -42,6 +42,10 @@
                 <label for="exampleInputPassword1">Cantidad Disponible</label>
                 <input class="form-control" type="number" name="quantity_available" placeholder="Cantidad máxima">
             </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Fecha de expiración</label>
+                <input class="form-control" type="date" name="expiration">
+            </div>
 
             <div class="form-group">
                 <select id="role_id" name="product_category_id" class="form-control">

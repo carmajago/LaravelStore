@@ -66,6 +66,7 @@ class SaleController extends Controller
         $total = SalesDetail::where('sale_id', '=', $id)
             ->select(DB::raw('sum(price*((iva/100)+1)*(1-(discount/100))) as total'))->first();
 
+
         return view('Sales/show', [
             'sale' => $sale,
             'saleDetails' => $saleDetails,
