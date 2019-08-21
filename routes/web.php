@@ -82,3 +82,7 @@ Route::post('/sales/update_credit', 'SaleController@updateCredit')->name('sales.
 
 Route::get('/sales_return/create/{id}', 'SalesReturnController@create')->name('salesReturn.create');
 Route::post('/sales_return/store', 'SalesReturnController@store')->name('salesReturn.store');
+
+Route::get('/low_products/create/{id}', 'LowProductController@create')->name('lowProducts.create');
+Route::get('/low_products', 'LowProductController@index')->name('lowProducts.index');
+Route::post('/low_products/store', 'LowProductController@store')->name('lowProducts.store');

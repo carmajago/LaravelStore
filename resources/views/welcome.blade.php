@@ -80,12 +80,13 @@
         <div class="col-2 sidebar">
             <img src="/images/logoHeader.png" class="img-fluid" style="padding: 20px">
             <ul>
-                <li> <a href="{{ route('home') }}"><i class="fas fa-user"></i>Inicio    </a></li>
-                <li> <a href="{{ route('users.index') }}"><i class="fas fa-user"></i> Usuarios</a></li>
-                <li> <a href="{{ route('products.index') }}"><i class="fab fa-product-hunt"></i> Productos</a></li>
-                <li> <a href="{{ route('providers.index') }}"><i class="fab fa-product-hunt"></i> Provedores</a></li>
-                <li> <a href="{{ route('clients.index') }}"><i class="fab fa-product-hunt"></i> Clientes</a></li>
-                <li> <a href="{{ route('sales.index') }}"><i class="fab fa-product-hunt"></i> Ventas</a></li>
+                <li> <a href="{{ route('home') }}">Inicio </a></li>
+                <li> <a href="{{ route('users.index') }}"> Usuarios</a></li>
+                <li> <a href="{{ route('products.index') }}"> Productos</a></li>
+                <li> <a href="{{ route('lowProducts.index') }}"> Productos de baja</a></li>
+                <li> <a href="{{ route('providers.index') }}"> Provedores</a></li>
+                <li> <a href="{{ route('clients.index') }}"> Clientes</a></li>
+                <li> <a href="{{ route('sales.index') }}"> Ventas</a></li>
             </ul>
             <div class="dropdown" style="  position: absolute;
             bottom: 0;

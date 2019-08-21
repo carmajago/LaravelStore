@@ -41,7 +41,16 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::join('product_categories', 'products.product_category_id', 'product_categories.id')
+            ->join('product_presentations', 'products.product_presentation_id', 'product_presentations.id')
+            ->where('products.id', '=', $id)
+            ->select(
+                'products.*',
+                'product_presentations.description as presentation',
+                'product_presentations.id as presentation_id',
+                'product_categories.name as category',
+                'product_categories.id as category_id'
+            )->first();
 
         return view('Products/show', ['product' => $product]);
     }

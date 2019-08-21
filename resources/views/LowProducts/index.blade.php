@@ -11,35 +11,21 @@
 
             <div class="col-12">
 
-                <h1 class="text-center">Produtos</h1>
+                <h1 class="text-center">Produtos de baja</h1>
             </div>
-            <div class="col-12" style="margin: 10px">
 
-                <a class="btn btn-primary btn-block" href="{{ route('products.create')}}">Crear nuevo producto</a>
-
-            </div>
             <hr>
 
-            <form class="form-inline" method="GET" action="{{ route('products.index') }}">
-                <div class="form-group mx-sm-3 mb-2">
-                    <select id="filter" name="filter" class="form-control">
-                        <option value="all">Todos</option>
-                        <option value="exhausted">Agotados</option>
-                        <option value="defeated">Proximos a vencer</option>
-                    </select>
-                </div>
-                <input type="submit" class="btn btn-primary" value="Filtrar"></button>
-            </form>
+
             <table class="table table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Nombre</th>
                         <th scope="col">Fecha de creación</th>
+                        <th scope="col">Cantidad</th>
                         <th scope="col">Precio</th>
-                        <th scope="col">iva</th>
-                        <th scope="col">Cantidad disponible</th>
-                        <th scope="col">Cantidad mínima</th>
-                        <th scope="col"></th>
+                        <th scope="col">Posisible razon</th>
+                        <th scope="col">Tipo</th>
 
                     </tr>
                 </thead>
@@ -49,19 +35,11 @@
                     <tr>
                         <td>{{ $product['name'] }}</td>
                         <td>{{ $product['created_at'] }}</td>
+                        <td>{{ $product['quantity'] }}</td>
                         <td>{{ $product['price'] }}</td>
-                        <td>{{ $product['iva'] }}</td>
-                        <td>{{ $product['quantity_available'] }}</td>
-                        <td>{{ $product['minimum_quantity'] }}</td>
-                        <td>
-                            @if (auth()->user()->hasRoles(['admin']))
-                            <a class="btn btn-warning" href="{{ route('products.edit', $product)}}"><i class="fas fa-edit"></i></a>
-                            @endif
-                            <a class="btn btn-info" href="{{ route('products.show', $product )}}"><i class="fas fa-info-circle"></i></a>
+                        <td>{{ $product['possible_low_rate'] }}</td>
+                        <td>{{ $product['type'] }}</td>
 
-                            <a href="#" data-href="{{ route('products.destroy', $product)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-
-                        </td>
 
                     </tr>
                     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
