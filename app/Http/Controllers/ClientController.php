@@ -37,11 +37,34 @@ class ClientController extends Controller
             ->select(DB::raw('sum(total_credit) as total'))
             ->first();
 
+
+        $rating = Sale::where('client_id', '=', $id)
+            ->where('total_credit', '>', 0)
+            ->orderBy('created_at', 'asc')
+            ->first();
+
+
+
+        $now = time();
+
+        $datediff = $now -  strtotime($rating['created_at']);
+
+        $datediff = round($datediff / (60 * 60 * 24));
+
+        if ($datediff < 10) {
+            $rate = "Buen cliente";
+        } else if ($datediff >= 10 && $datediff < 20) {
+            $rate = "cliente regular";
+        } else {
+            $rate = "Mal cliente";
+        }
+
         return view('Clients/show', [
             'client' => $client,
             'sales' => $sales,
             'payments' => $payments,
             'credit' => $totalCredit['total'],
+            'rating' => $rate
         ]);
     }
 

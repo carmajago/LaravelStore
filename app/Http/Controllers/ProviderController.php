@@ -22,6 +22,8 @@ class ProviderController extends Controller
     }
     public function show($id)
     {
+
+
         $provider = Provider::find($id);
         $providerPayments = ProviderPayment::where("provider_id", "=", $id)->paginate(5);
 
@@ -35,6 +37,7 @@ class ProviderController extends Controller
 
     public function create()
     {
+
         return view(
             'Providers/create'
         );

@@ -19,6 +19,10 @@
             <h4>
                 <strong>Deuda:</strong> {{$credit}}
             </h4>
+
+            <h4>
+                <strong>Calificación:</strong> {{$rating}}
+            </h4>
         </div>
     </div>
     <hr />

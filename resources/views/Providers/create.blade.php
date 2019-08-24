@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <h1 class="text-center">Nuevo usuario</h1>
+    <h1 class="text-center">Nuevo provedor</h1>
     <div class="box" style="margin: 0 50px">
         <form method="POST" action="{{ route('providers.store') }}">
             @csrf
@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Telefono</label>
-                <input class="form-control" type="number"  name="phone" placeholder="Telefono">
+                <input class="form-control" type="number" name="phone" placeholder="Telefono">
             </div>
 
             <a class="btn btn-secondary" href="{{ route('providers.index') }}">Cancelar</a>

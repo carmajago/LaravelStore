@@ -42,8 +42,8 @@ Route::delete('/products/{id}', 'ProductController@destroy')->name('products.des
 
 // providers
 Route::get('/providers', 'ProviderController@index')->name('providers.index');
-Route::get('/providers/{id}', 'ProviderController@show')->name('providers.show');
 Route::get('/providers/create', 'ProviderController@create')->name('providers.create');
+Route::get('/providers/{id}', 'ProviderController@show')->name('providers.show');
 Route::post('/providers', 'ProviderController@store')->name('providers.store');
 Route::delete('/providers/{id}', 'ProviderController@destroy')->name('providers.destroy');
 
